@@ -2,7 +2,7 @@
 
 <head>
     <title>Shopping e-Commerce Site</title>
-    <link rel=icon href='https://www.freeiconspng.com/uploads/shopping-cart-icon-21.jpg' type="image/png">
+    <!-- <link rel=icon href='https://www.freeiconspng.com/uploads/shopping-cart-icon-21.jpg' type="image/png"> -->
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./css/app.css">
     <meta charset="UTF-8">
@@ -52,12 +52,12 @@
                 <div class=row>
                     <div class=col>
                         <label class="productLabel">FILTERS :</label>
-                        <button class="filter">All Products</button>
-                        <button class="filter">Tee Shirt</button>
-                        <button class="filter">Denim</button>
-                        <button class="filter">Sweatshirts</button>
-                        <button class="filter">Polo Tee Shirt</button>
-                        <button class="filter">Shirt</button>
+                        <button id="allproduct" value="6" class="filter">All Products</button>
+                        <button id="teeshirt" value="1" class="filter">Tee Shirt</button>
+                        <button id="denim" value="2" class="filter">Denim</button>
+                        <button id="sweatshirt" value="3" class="filter">Sweatshirts</button>
+                        <button id="poloteeshirt" value="4" class="filter">Polo Tee Shirt</button>
+                        <button id="shirt" value="5" class="filter">Shirt</button>
                     </div>
                     <div class="col-md-2">
                         <select class="filter1" id="sort-option">

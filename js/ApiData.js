@@ -4,7 +4,6 @@ class ApiData {
     async data() {
 
         const apiResponse = await fetch('product.json');
-
         return apiResponse
 
     }
