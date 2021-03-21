@@ -1,0 +1,172 @@
+.icon {
+    background-image: url('../assests/download.png');
+}
+
+.headerColor {
+  color: black;
+  text-decoration: none;
+  margin-right: 6%;
+  font-family: sans-serif;
+}
+
+.option {
+    border: none;
+    color: black;
+    text-decoration: none;
+    margin-right: 6%;
+    font-family: sans-serif;
+    margin-top: -6px;
+}
+
+.mainBorder {
+    border: groove;
+    border-color: blue;
+}
+
+.caret-down {
+    border-top: 4px solid;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 4px;
+    margin-bottom: 1px;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.image {
+    width: 7%;
+    border-radius: 22%;
+}
+
+.input::placeholder {
+    color: black;
+    border: none;
+    font-size: x-large;
+    font-family: sans-serif;
+}
+
+.input {
+    color: black;
+    border: none;
+    width: 30%;
+}
+
+.mainRow {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.nav {
+    margin-right: 8%;
+    margin-top: 0.5%;
+}
+
+.icons {
+    margin-right: 4%;
+    cursor: pointer;
+}
+
+.pathLabel {
+    font-size: small;
+    font-family: inherit;
+    margin-left: 32px;
+    margin-bottom: 4px;
+}
+
+.productLabel {
+    font-size: small;
+    font-family: system-ui;
+    margin-left: 30px;
+    margin-bottom: 1%;
+    -webkit-text-stroke-width: thin;
+    font-size: large;
+}
+
+.productLabel2 {
+    font-weight: lighter;
+    font-size: large;
+}
+
+.navClass {
+    background-color: darkred;
+    color: white;
+    text-decoration: none;
+    margin-right: 6%;
+    font-family: sans-serif;
+    font-size: small;
+    width: 100%;
+    padding: 7px;
+    text-align: center;
+}
+
+.inviteBtn {
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    margin-left: 2%;
+}
+
+.filter {
+    background-color: white;
+    border-radius: 10px;
+    font-size: small;
+    margin-left: 3px;
+    border-width: 1px;
+    padding: 7px;
+}
+
+.filter1 {
+    background-color: white;
+    border-radius: 10px;
+    font-size: small;
+    margin-left: 3px;
+    border-width: 1px;
+    padding: 7px;
+}
+
+.hr {
+    margin: 2%;
+    color: inherit;
+    background-color: currentColor;
+    border: 0;
+    opacity: 0.25;
+    width: 96%;
+}
+
+.itemimg {
+    width: 100%;
+    margin-top: 13%;
+    margin-bottom: 4%;
+}
+
+.itemName{
+    margin-left: 1%;
+    margin-top: 5px;
+}
+
+.listOfItems {
+    margin-left: 14px;
+    font-family: inherit;
+    font-weight: bolder;
+}
+
+.listOfItems2 {
+    margin-left: 14px;
+    font-weight: lighter;
+    font-size: smaller;
+}
+
+.priceLabel {
+    margin-left: 3px;
+    font-weight: lighter;
+    font-size: smaller;
+    text-decoration-line: line-through;
+}
+
+.priceLabel2 {
+    margin-left: 3px;
+    font-weight: lighter;
+    font-size: smaller;
+    color: red;
+}
