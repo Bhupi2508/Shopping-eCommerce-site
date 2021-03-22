@@ -52,6 +52,8 @@ function allproductfunction(e) {
 // calling this fn from addEventListerners
 function teeshirtfunction(e) {
     e.preventDefault();
+
+    // it will return the total count
     countData(e.target.value);
 
     // If data has already present
