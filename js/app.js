@@ -8,6 +8,8 @@ const denim = document.getElementById('denim');
 const sweatshirt = document.getElementById('sweatshirt');
 const poloteeshirt = document.getElementById('poloteeshirt');
 const shirt = document.getElementById('shirt');
+const aHvr = document.getElementById('hvr');
+console.log("ok ", aHvr);
 
 // create a function
 function listener() {
@@ -31,7 +33,11 @@ function allproductfunction(e) {
     countData(e.target.value);
 
     // If data has already present
-    if (list.childElementCount) list.removeChild();
+    let child = list.lastElementChild;
+    while (child) {
+        list.removeChild(child);
+        child = list.lastElementChild;
+    }
 
     // get the whole response and filteres on it
     api.data()
@@ -47,9 +53,13 @@ function allproductfunction(e) {
 function teeshirtfunction(e) {
     e.preventDefault();
     countData(e.target.value);
-    console.log("ok => ", list.childElementCount);
+
     // If data has already present
-    if (list.childElementCount) list.removeChild();
+    let child = list.lastElementChild;
+    while (child) {
+        list.removeChild(child);
+        child = list.lastElementChild;
+    }
 
     // get the whole response and filteres on it
     api.data()
@@ -67,11 +77,12 @@ function teeshirtfunction(e) {
 function denimfunction(e) {
     e.preventDefault();
     countData(e.target.value);
-    console.log(list);
-    console.log("ok 2 => ", list.childElementCount);
+
     // If data has already present
-    if (list.childElementCount) {
-        list.removeChild();
+    let child = list.lastElementChild;
+    while (child) {
+        list.removeChild(child);
+        child = list.lastElementChild;
     }
 
     // get the whole response and filteres on it
@@ -92,7 +103,11 @@ function sweatshirtfunction(e) {
     countData(e.target.value);
 
     // If data has already present
-    if (list.childElementCount) list.removeChild();
+    let child = list.lastElementChild;
+    while (child) {
+        list.removeChild(child);
+        child = list.lastElementChild;
+    }
 
     // get the whole response and filteres on it
     api.data()
@@ -111,7 +126,11 @@ function poloteeshirtfunction(e) {
     e.preventDefault();
     countData(e.target.value);
     // If data has already present
-    if (list.childElementCount) list.removeChild();
+    let child = list.lastElementChild;
+    while (child) {
+        list.removeChild(child);
+        child = list.lastElementChild;
+    }
 
     // get the whole response and filteres on it
     api.data()
@@ -130,7 +149,11 @@ function shirtfunction(e) {
     e.preventDefault();
     countData(e.target.value);
     // If data has already present
-    if (list.childElementCount) list.removeChild();
+    let child = list.lastElementChild;
+    while (child) {
+        list.removeChild(child);
+        child = list.lastElementChild;
+    }
 
     // get the whole response and filteres on it
     api.data()
@@ -195,6 +218,7 @@ function countData(key) {
                     break;
                 default:
                     countData = val.length
+                    responseData()
             }
 
             // this will show the count of product
@@ -204,33 +228,40 @@ function countData(key) {
         });
 }
 
-// Data will show on dashboard with all the filter's
-// function responseData() {
+// this function call on load for first time
+function responseData() {
+    api.data()
+        .then(response => response.json())
+        .then(function (val) {
+            val.forEach(value => {
+                printData(value)
+            })
+        });
+}
 
-//     api.data()
-//         .then(response => response.json())
-//         .then(function (val) {
-//             val.forEach(value => {
-
-//             })
-//         });
-// }
-
-// common dashboard print data
+// common function for dashboard data which will call on click or onLoad
 function printData(value) {
     const image = document.createElement('img');
     const column = document.createElement('div');
     const brand = document.createElement('div');
     const name = document.createElement('div');
     const price = document.createElement('div');
+    const hvrDiv = document.createElement('div');
+    const aHover = document.createElement('a');
 
     // calculate the percentage of compare
     let perc = ((value.price / value.compare_at_price) * 100).toFixed(0)
 
-    column.className = 'col-md-2'
-    image.classList = 'itemImg'
+    column.className = 'itemDiv col-sm-3'
+    image.className = 'itemImg'
+    hvrDiv.className = 'hvrDiv'
+    hvrDiv.id = 'hoverDiv'
+    aHover.id = 'hvr'
+    aHover.className = 'ahover'
+    aHover.setAttribute('href', '#');
+    aHover.textContent = "ADD TO CART"
     image.setAttribute('src', value.image_src);
-    brand.className = 'listOfItems'
+    brand.className = 'listOfItems0'
     name.className = 'listOfItems2'
     price.innerHTML = `
                       <div class='listOfItems'> $${value.price} 
@@ -241,7 +272,9 @@ function printData(value) {
 
     brand.textContent = value.vendor
     name.textContent = value.name
+    // hvrDiv.appendChild(aHover);
     column.appendChild(image);
+    // column.appendChild(hvrDiv);
     column.appendChild(brand);
     column.appendChild(name);
     column.appendChild(price);
@@ -250,4 +283,3 @@ function printData(value) {
 
 // Invoke the function
 countData();
-// responseData();

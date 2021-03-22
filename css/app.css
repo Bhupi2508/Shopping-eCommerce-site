@@ -49,7 +49,8 @@
 .input {
     color: black;
     border: none;
-    width: 30%;
+    width: 100%;
+    margin-left: -51%;
 }
 
 .mainRow {
@@ -134,11 +135,16 @@
     width: 96%;
 }
 
-.itemimg {
-    width: 100%;
-    margin-top: 13%;
+.itemImg {
+    width: 273px;
     margin-bottom: 4%;
 }
+
+.itemImg:hover {
+    /* width: 250px; */
+    margin-bottom: 4%;
+    height: 20%;
+ }
 
 .itemName{
     margin-left: 1%;
@@ -148,13 +154,21 @@
 .listOfItems {
     margin-left: 14px;
     font-family: inherit;
+    font-weight: 700;
+    margin-bottom: 14%;
+}
+.listOfItems0 {
+    margin-left: 14px;
+    font-family: inherit;
     font-weight: bolder;
+    font-size: medium;
 }
 
 .listOfItems2 {
     margin-left: 14px;
     font-weight: lighter;
     font-size: smaller;
+    color: darkgray;
 }
 
 .priceLabel {
@@ -166,7 +180,36 @@
 
 .priceLabel2 {
     margin-left: 3px;
-    font-weight: lighter;
+    font-weight: 300;
     font-size: smaller;
     color: red;
+}
+
+/* .ahover {
+    display: none;
+} */
+
+/* Img:hover + .ahover, .ahover:hover {
+    display: inline-block;
+} */
+
+/* .itemDiv:hover .itemImg {
+    top: 90px;
+}
+
+.itemDiv:hover .ahover {
+    opacity: 1;
+} */
+
+@media (min-width: 576px){
+.col-sm-3 {
+    flex: 0 0 auto;
+    width: 20%;
+    }
+}
+
+@media (min-width: 1400px){
+.container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+    max-width: 96%;
+    }
 }
