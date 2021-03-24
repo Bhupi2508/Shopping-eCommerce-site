@@ -8,8 +8,8 @@ const denim = document.getElementById('denim');
 const sweatshirt = document.getElementById('sweatshirt');
 const poloteeshirt = document.getElementById('poloteeshirt');
 const shirt = document.getElementById('shirt');
-const aHvr = document.getElementById('hvr');
-console.log("ok ", aHvr);
+const hoverDiv = document.getElementById('hoverDiv');
+console.log("hoverDiv :  ", hoverDiv);
 
 // create a function
 function listener() {
@@ -248,23 +248,36 @@ function printData(value) {
     const brand = document.createElement('div');
     const name = document.createElement('div');
     const price = document.createElement('div');
-    const hvrDiv = document.createElement('div');
-    const aHover = document.createElement('a');
+    const hoverDiv = document.createElement('div');
+    const sizeDiv = document.createElement('div');
+    const buttonHover = document.createElement('button');
 
     // calculate the percentage of compare
     let perc = ((value.price / value.compare_at_price) * 100).toFixed(0)
+    let sizes = value.options
+    console.log(sizes);
 
-    column.className = 'itemDiv col-sm-3'
+    column.className = 'itemDiv'
     image.className = 'itemImg'
-    hvrDiv.className = 'hvrDiv'
-    hvrDiv.id = 'hoverDiv'
-    aHover.id = 'hvr'
-    aHover.className = 'ahover'
-    aHover.setAttribute('href', '#');
-    aHover.textContent = "ADD TO CART"
     image.setAttribute('src', value.image_src);
+    hoverDiv.className = 'hvrDiv'
+    hoverDiv.id = 'hoverDiv'
+    buttonHover.id = 'btnhvr'
+    buttonHover.className = 'buttoncls'
+    buttonHover.setAttribute('href', '#');
+    buttonHover.textContent = "ADD TO CART"
     brand.className = 'listOfItems0'
     name.className = 'listOfItems2'
+    sizeDiv.innerHTML = `
+                        <div>
+                            <span class="sizetext">Sizes: </span>
+                            <a class="sizes" href='#'>XS,</a>
+                            <a class="sizes" href='#'>S,</a>
+                            <a class="sizes" href='#'>M,</a>
+                            <a class="sizes" href='#'>L,</a>
+                            <a class="sizes" href='#'>XL</a>
+                        </div>
+      `;
     price.innerHTML = `
                       <div class='listOfItems'> $${value.price} 
                       <label class='priceLabel'>$${value.compare_at_price}</label>
@@ -274,9 +287,11 @@ function printData(value) {
 
     brand.textContent = value.vendor
     name.textContent = value.name
-    // hvrDiv.appendChild(aHover);
+
+    hoverDiv.appendChild(buttonHover);
+    hoverDiv.appendChild(sizeDiv);
     column.appendChild(image);
-    // column.appendChild(hvrDiv);
+    column.appendChild(hoverDiv);
     column.appendChild(brand);
     column.appendChild(name);
     column.appendChild(price);

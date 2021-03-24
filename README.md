@@ -3,11 +3,11 @@
                         Javascript | DOM | HTML | CSS | Bootstrap
 
 ## Project specification
-#### OnLoad Data
-#### Filters
-#### Shopping cart
-#### Searching
-#### user Information
+    * Data should be show on load
+    * Filters
+    * Shopping cart
+    * Searching
+    * user Information
 
 
 ## Clone project from below github repository
