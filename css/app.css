@@ -2,7 +2,7 @@
     background-image: url('../assests/download.png');
 }
 
-.headerColor {
+.header-color {
   color: black;
   text-decoration: none;
   margin-right: 6%;
@@ -18,7 +18,7 @@
     margin-top: -6px;
 }
 
-.mainBorder {
+.main-border {
     border: groove;
     border-color: blue;
 }
@@ -53,7 +53,7 @@
     margin-left: -51%;
 }
 
-.mainRow {
+.main-row {
     margin-top: 1%;
     margin-bottom: 1%;
 }
@@ -68,14 +68,14 @@
     cursor: pointer;
 }
 
-.pathLabel {
+.path-label {
     font-size: small;
     font-family: inherit;
     margin-left: 32px;
     margin-bottom: 4px;
 }
 
-.productLabel {
+.product-label {
     font-size: small;
     font-family: system-ui;
     margin-left: 30px;
@@ -84,12 +84,12 @@
     font-size: large;
 }
 
-.productLabel2 {
+.product-label2 {
     font-weight: lighter;
     font-size: large;
 }
 
-.navClass {
+.nav-class {
     background-color: darkred;
     color: white;
     text-decoration: none;
@@ -101,7 +101,7 @@
     text-align: center;
 }
 
-.inviteBtn {
+.invite-btn {
     background-color: white;
     border: none;
     border-radius: 10px;
@@ -162,7 +162,7 @@
     width: 96%;
 }
 
-.itemImg {
+.item-img {
     width: 258px;
     margin-bottom: 4%;
 }
@@ -172,34 +172,34 @@
     margin-top: 5px;
 }
 
-.listOfItems {
-    margin-left: 14px;
+.list-Of-items {
+    margin-left: 11px;
     font-family: inherit;
     font-weight: 700;
     margin-bottom: 14%;
 }
-.listOfItems0 {
-    margin-left: 14px;
+.list-Of-items-0 {
+    margin-left: 11px;
     font-family: inherit;
     font-weight: bolder;
     font-size: medium;
 }
 
-.listOfItems2 {
-    margin-left: 14px;
+.list-Of-items-2 {
+    margin-left: 11px;
     font-weight: lighter;
     font-size: smaller;
     color: darkgray;
 }
 
-.priceLabel {
+.price-label {
     margin-left: 3px;
     font-weight: lighter;
     font-size: smaller;
     text-decoration-line: line-through;
 }
 
-.priceLabel2 {
+.price-label-2 {
     margin-left: 3px;
     font-weight: 300;
     font-size: smaller;
@@ -207,7 +207,7 @@
 }
 
 @media (min-width: 576px){
-.itemDiv {
+.item-div {
     flex: 0 0 auto;
     width: 20%;
     margin-bottom: 3%;
@@ -230,7 +230,7 @@
     margin-left: calc(var(--bs-gutter-x) / -2);
 }
 
-.hvrDiv {
+.hvr-div {
     font-weight: lighter;
     font-size: unset;
     color: darkgray;
@@ -242,14 +242,14 @@
     overflow: hidden;
 }
 
-.itemDiv:hover .hvrDiv {
+.item-div:hover .hvr-div {
     font-weight: lighter;
     font-size: unset;
     color: darkgray;
     text-decoration: none;
     background-color: white;
-    width: 258px;
-    margin-top: -40px;
+    width: 261px;
+    margin-top: -38px;
     position: absolute;
     content-visibility: inherit;
  }
@@ -269,7 +269,7 @@
     text-decoration: none;
 }
 
-.buttoncls {
+.button-cls {
     text-decoration-line: none;
     width: 90%;
     margin-left: 5%;
@@ -329,4 +329,22 @@ td {
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #E1E1E1; 
+}
+
+.remove-cart {
+    background-color: green;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: 100;
+    font-family: -webkit-body;
+}
+
+.remove-cart:hover {
+    background-color: green;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: 100;
+    font-family: -webkit-body;
 }

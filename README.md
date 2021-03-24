@@ -22,5 +22,5 @@
                                     
                                               or
 
-                             open index.html file on browserdirectly
+                             open index.html file on browser directly
 

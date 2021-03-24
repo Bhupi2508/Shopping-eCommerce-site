@@ -9,7 +9,7 @@ const list = document.getElementById('list'),
     poloteeshirt = document.getElementById('poloteeshirt'),
     shirt = document.getElementById('shirt'),
     shoppingCart = document.querySelector('#cart-content tbody'),
-    clearCartBtn = document.getElementById('remove');
+    clearCartBtn = document.getElementById('clear-cart');
 
 
 
@@ -29,7 +29,9 @@ function listener() {
     poloteeshirt.addEventListener('click', poloteeshirtfunction);
     shirt.addEventListener('click', shirtfunction);
     list.addEventListener('click', cartItems);
-    shoppingCart.addEventListener('click', clearCartItems);
+    shoppingCart.addEventListener('click', removeItem);
+    clearCartBtn.addEventListener('click', clearAllData)
+    document.addEventListener('DOMContentLoaded', dataFromLocalStorage);
 }
 
 
@@ -231,7 +233,7 @@ function countData(key) {
 
             // this will show the count of product
             const count = document.getElementById('count')
-            count.classList = 'productLabel2'
+            count.classList = 'product-label2'
             count.textContent = `(${countData} Products)`
         });
 }
@@ -263,16 +265,17 @@ function printData(value) {
     perc = 100 - perc;
 
 
-    column.className = 'itemDiv'
-    image.className = 'itemImg'
+    column.className = 'item-div'
+    image.className = 'item-img'
     image.setAttribute('src', value.image_src);
-    hoverDiv.className = 'hvrDiv'
-    hoverDiv.id = 'hoverDiv'
+    hoverDiv.className = 'hvr-div'
+    hoverDiv.id = 'hover-div'
     buttonHover.id = value.id;
-    buttonHover.className = 'buttoncls'
+    buttonHover.disabled = true;
+    buttonHover.className = 'button-cls'
     buttonHover.textContent = "ADD TO CART"
-    brand.className = 'listOfItems0'
-    name.className = 'listOfItems2'
+    brand.className = 'list-Of-items-0'
+    name.className = 'list-Of-items-2'
     sizeDiv.innerHTML = `
                         <div>
                             <span class="sizetext">Sizes: </span>
@@ -284,10 +287,10 @@ function printData(value) {
                         </div>
       `;
     price.innerHTML = `
-                      <div class='listOfItems'>
-                      <label class="priceVal">$${value.price}</label>
-                      <label class='priceLabel'>$${value.compare_at_price}</label>
-                      <label class='priceLabel2'> (${perc}% OFF)</label>
+                      <div class='list-Of-items'>
+                      <label class="price-val">$${value.price}</label>
+                      <label class='price-label'>$${value.compare_at_price}</label>
+                      <label class='price-label-2'> (${perc}% OFF)</label>
                      </div>
                     `;
 
@@ -307,31 +310,30 @@ function printData(value) {
 // cart function
 function cartItems(e) {
     e.preventDefault()
-    console.log(e.target);
-    if (e.target.classList.contains('buttoncls')) {
+    if (e.target.classList.contains('button-cls')) {
 
         const cart = e.target.parentElement.parentElement
 
         // store the data into object
         const cartData = {
             image: cart.querySelector('img').src,
-            name: cart.querySelector('.listOfItems0').textContent,
-            price: cart.querySelector('.priceVal').textContent,
+            name: cart.querySelector('.list-Of-items-0').textContent,
+            price: cart.querySelector('.price-val').textContent,
             id: cart.querySelector('button').id
         }
 
         addintoCart(cartData);
-
     }
+}
 
-    //add the data into cart
-    function addintoCart(cartItem) {
+//add the data into cart
+function addintoCart(cartItem) {
 
-        // create a <tr> tag for the tabe row data purpose 
-        const tr = document.createElement('tr');
+    // create a <tr> tag for the tabe row data purpose 
+    const tr = document.createElement('tr');
 
-        // Build the template for the cart items
-        tr.innerHTML = `
+    // Build the template for the cart items
+    tr.innerHTML = `
              <tr>
                   <td>
                        <img src="${cartItem.image}" width=100>
@@ -339,24 +341,103 @@ function cartItems(e) {
                   <td>${cartItem.name}</td>
                   <td>${cartItem.price}</td>
                   <td>
-                       <a href="#" class="remove-cart" data-id="${cartItem.id}">X</a>
+                       <a href="#" class="remove-cart" data-id="${cartItem.id}">delete</a>
                   </td>
              </tr>
         `;
-        // Append table data into the shopping cart tag
-        shoppingCart.appendChild(tr);
+    // Append table data into the shopping cart tag
+    shoppingCart.appendChild(tr);
 
-    }
+    // Add cart values into Storage
+    saveDataIntoStorage(cartItem);
 }
 
+// Add the cart value into the local storage
+function saveDataIntoStorage(cartItem) {
+    let items = getitemsFromStorage();
+
+    // add the cart values into the array
+    items.push(cartItem);
+
+    // since storage only saves strings, we need to convert JSON into String
+    localStorage.setItem('items', JSON.stringify(items));
+}
+
+// Get the contents from storage
+function getitemsFromStorage() {
+
+    let items;
+
+    // if something exist on storage then we get the value, otherwise create an empty array
+    if (localStorage.getItem('items') === null) {
+        items = [];
+    } else {
+        items = JSON.parse(localStorage.getItem('items'));
+    }
+    return items;
+
+}
 // clear the values from Cart
-function clearCartItems(e) {
-    e.preventDefault()
+function removeItem(e) {
 
+    let cartId, cartsLocalData;
 
-    console.log(e.target.parentElement.parentElement);
     if (e.target.classList.contains('remove-cart')) {
-        e.target.parentElement.parentElement.remove()
+        console.log("ok");
+        e.target.parentElement.parentElement.remove();
+        cartId = e.target.parentElement.parentElement.querySelector('a').getAttribute('data-id');
     }
 
+    cartsLocalData = getitemsFromStorage();
+
+    // loop trought the array and find the index to remove
+    cartsLocalData.forEach(function (value, index) {
+        if (value.id === cartId) {
+            cartsLocalData.splice(index, 1);
+        }
+    });
+
+    // Add the rest of the array
+    localStorage.setItem('items', JSON.stringify(cartsLocalData));
+}
+
+function clearAllData() {
+
+    while (shoppingCart.firstChild) {
+        shoppingCart.removeChild(shoppingCart.firstChild);
+    }
+
+    localStorage.clear();
+
+}
+
+function dataFromLocalStorage() {
+    console.log("from local storage");
+
+    let getItems = getitemsFromStorage();
+
+    console.log("from local storage  =>>>  ", getItems);
+
+    // LOOP throught the cart items and print into the cart
+    getItems.forEach(cartData => {
+        // create the <tr>
+        const tr = document.createElement('tr');
+
+        // print the content
+        tr.innerHTML = `
+                 <tr>
+                      <td>
+                           <img src="${cartData.image}" width=100>
+                      </td>
+                      <td>${cartData.name}</td>
+                      <td>${cartData.price}</td>
+                      <td>
+                           <a href="#" class="remove-cart" data-id="${cartData.id}">delete</a>
+                      </td>
+                 </tr>
+            `;
+
+        console.log("tr : ", tr);
+        shoppingCart.appendChild(tr);
+    });
 }
