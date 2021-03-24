@@ -1,17 +1,24 @@
 const api = new ApiData();
 
 // get the tag from html
-const list = document.getElementById('list');
-const allproduct = document.getElementById('allproduct');
-const teeshirt = document.getElementById('teeshirt');
-const denim = document.getElementById('denim');
-const sweatshirt = document.getElementById('sweatshirt');
-const poloteeshirt = document.getElementById('poloteeshirt');
-const shirt = document.getElementById('shirt');
-const hoverDiv = document.getElementById('hoverDiv');
-console.log("hoverDiv :  ", hoverDiv);
+const list = document.getElementById('list'),
+    allproduct = document.getElementById('allproduct'),
+    teeshirt = document.getElementById('teeshirt'),
+    denim = document.getElementById('denim'),
+    sweatshirt = document.getElementById('sweatshirt'),
+    poloteeshirt = document.getElementById('poloteeshirt'),
+    shirt = document.getElementById('shirt'),
+    shoppingCart = document.querySelector('#cart-content tbody'),
+    clearCartBtn = document.getElementById('remove');
 
-// create a function
+
+
+// Invoke the function
+listener();
+countData();
+
+
+// function for call all the listerner's on load
 function listener() {
 
     // Added all the event Listerner's
@@ -21,10 +28,9 @@ function listener() {
     sweatshirt.addEventListener('click', sweatshirtfunction);
     poloteeshirt.addEventListener('click', poloteeshirtfunction);
     shirt.addEventListener('click', shirtfunction);
+    list.addEventListener('click', cartItems);
+    shoppingCart.addEventListener('click', clearCartItems);
 }
-
-// Invocked function
-listener();
 
 
 // calling this fn from addEventListerners
@@ -254,17 +260,16 @@ function printData(value) {
 
     // calculate the percentage of compare
     let perc = ((value.price / value.compare_at_price) * 100).toFixed(0)
-    let sizes = value.options
-    console.log(sizes);
+    perc = 100 - perc;
+
 
     column.className = 'itemDiv'
     image.className = 'itemImg'
     image.setAttribute('src', value.image_src);
     hoverDiv.className = 'hvrDiv'
     hoverDiv.id = 'hoverDiv'
-    buttonHover.id = 'btnhvr'
+    buttonHover.id = value.id;
     buttonHover.className = 'buttoncls'
-    buttonHover.setAttribute('href', '#');
     buttonHover.textContent = "ADD TO CART"
     brand.className = 'listOfItems0'
     name.className = 'listOfItems2'
@@ -279,7 +284,8 @@ function printData(value) {
                         </div>
       `;
     price.innerHTML = `
-                      <div class='listOfItems'> $${value.price} 
+                      <div class='listOfItems'>
+                      <label class="priceVal">$${value.price}</label>
                       <label class='priceLabel'>$${value.compare_at_price}</label>
                       <label class='priceLabel2'> (${perc}% OFF)</label>
                      </div>
@@ -298,5 +304,59 @@ function printData(value) {
     list.appendChild(column);
 }
 
-// Invoke the function
-countData();
+// cart function
+function cartItems(e) {
+    e.preventDefault()
+    console.log(e.target);
+    if (e.target.classList.contains('buttoncls')) {
+
+        const cart = e.target.parentElement.parentElement
+
+        // store the data into object
+        const cartData = {
+            image: cart.querySelector('img').src,
+            name: cart.querySelector('.listOfItems0').textContent,
+            price: cart.querySelector('.priceVal').textContent,
+            id: cart.querySelector('button').id
+        }
+
+        addintoCart(cartData);
+
+    }
+
+    //add the data into cart
+    function addintoCart(cartItem) {
+
+        // create a <tr> tag for the tabe row data purpose 
+        const tr = document.createElement('tr');
+
+        // Build the template for the cart items
+        tr.innerHTML = `
+             <tr>
+                  <td>
+                       <img src="${cartItem.image}" width=100>
+                  </td>
+                  <td>${cartItem.name}</td>
+                  <td>${cartItem.price}</td>
+                  <td>
+                       <a href="#" class="remove-cart" data-id="${cartItem.id}">X</a>
+                  </td>
+             </tr>
+        `;
+        // Append table data into the shopping cart tag
+        shoppingCart.appendChild(tr);
+
+    }
+}
+
+// clear the values from Cart
+function clearCartItems(e) {
+    e.preventDefault()
+
+
+    console.log(e.target.parentElement.parentElement);
+    if (e.target.classList.contains('remove-cart')) {
+        e.target.parentElement.parentElement.remove()
+    }
+
+}
