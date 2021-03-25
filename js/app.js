@@ -1,6 +1,7 @@
+// Instance of APIdata 
 const api = new ApiData();
 
-// get the tag from html
+// tag initialiser using DOM element
 const list = document.getElementById('list'),
     allproduct = document.getElementById('allproduct'),
     teeshirt = document.getElementById('teeshirt'),
@@ -13,15 +14,14 @@ const list = document.getElementById('list'),
 
 
 
-// Invoke the function
+// Invoke the function on load
 listener();
 countData();
 
 
-// function for call all the listerner's on load
+// function which have all the eventListerner's
 function listener() {
 
-    // Added all the event Listerner's
     allproduct.addEventListener('click', allproductfunction);
     teeshirt.addEventListener('click', teeshirtfunction);
     denim.addEventListener('click', denimfunction);
@@ -35,9 +35,13 @@ function listener() {
 }
 
 
-// calling this fn from addEventListerners
+/**
+ * @function allproductfunction(e) this function is for all the product
+ */
 function allproductfunction(e) {
     e.preventDefault();
+
+    // will return all count
     countData(e.target.value);
 
     // If data has already present
@@ -47,7 +51,7 @@ function allproductfunction(e) {
         child = list.lastElementChild;
     }
 
-    // get the whole response and filteres on it
+    // return all the data 
     api.data()
         .then(response => response.json())
         .then(function (val) {
@@ -57,11 +61,14 @@ function allproductfunction(e) {
         })
 }
 
-// calling this fn from addEventListerners
+
+/**
+ * @function teeshirtfunction(e) this function is for teeshirt product
+ */
 function teeshirtfunction(e) {
     e.preventDefault();
 
-    // it will return the total count
+    // will return all count
     countData(e.target.value);
 
     // If data has already present
@@ -71,7 +78,7 @@ function teeshirtfunction(e) {
         child = list.lastElementChild;
     }
 
-    // get the whole response and filteres on it
+    // return the tesShirt data
     api.data()
         .then(response => response.json())
         .then(function (val) {
@@ -83,9 +90,14 @@ function teeshirtfunction(e) {
         })
 }
 
-// calling this fn from addEventListerners
+
+/**
+ * @function denimfunction(e) this function is for Denim product
+ */
 function denimfunction(e) {
     e.preventDefault();
+
+    // will return denim count
     countData(e.target.value);
 
     // If data has already present
@@ -95,7 +107,7 @@ function denimfunction(e) {
         child = list.lastElementChild;
     }
 
-    // get the whole response and filteres on it
+    // return the Deim data
     api.data()
         .then(response => response.json())
         .then(function (val) {
@@ -107,9 +119,14 @@ function denimfunction(e) {
         })
 }
 
-// calling this fn from addEventListerners
+
+/**
+ * @function sweatshirtfunction(e) this function is for Sweater product
+ */
 function sweatshirtfunction(e) {
     e.preventDefault();
+
+    // will return sweater count
     countData(e.target.value);
 
     // If data has already present
@@ -119,7 +136,7 @@ function sweatshirtfunction(e) {
         child = list.lastElementChild;
     }
 
-    // get the whole response and filteres on it
+    // return the sweater data
     api.data()
         .then(response => response.json())
         .then(function (val) {
@@ -131,10 +148,16 @@ function sweatshirtfunction(e) {
         })
 }
 
-// calling this fn from addEventListerners
+
+/**
+ * @function poloteeshirtfunction(e) this function is for polo tee shirt product
+ */
 function poloteeshirtfunction(e) {
     e.preventDefault();
+
+    // will return polo teeshirt count
     countData(e.target.value);
+
     // If data has already present
     let child = list.lastElementChild;
     while (child) {
@@ -142,7 +165,7 @@ function poloteeshirtfunction(e) {
         child = list.lastElementChild;
     }
 
-    // get the whole response and filteres on it
+    // return the polo teeshirt data
     api.data()
         .then(response => response.json())
         .then(function (val) {
@@ -154,10 +177,15 @@ function poloteeshirtfunction(e) {
         })
 }
 
-// calling this fn from addEventListerners
+/**
+ * @function shirtfunction(e) this function is for shirt product
+ */
 function shirtfunction(e) {
     e.preventDefault();
+
+    // will return shirt count
     countData(e.target.value);
+
     // If data has already present
     let child = list.lastElementChild;
     while (child) {
@@ -165,7 +193,7 @@ function shirtfunction(e) {
         child = list.lastElementChild;
     }
 
-    // get the whole response and filteres on it
+    // return the shirt data
     api.data()
         .then(response => response.json())
         .then(function (val) {
@@ -177,7 +205,9 @@ function shirtfunction(e) {
         })
 }
 
-// This is common function for all the products with filter
+/**
+ * @function countData(key) this function will return count based on filter
+ */
 function countData(key) {
     let countData = 0;
 
@@ -238,7 +268,9 @@ function countData(key) {
         });
 }
 
-// this function call on load for first time
+/**
+ * @function responseData() this function call on load for first time for all data
+ */
 function responseData() {
     api.data()
         .then(response => response.json())
@@ -249,7 +281,9 @@ function responseData() {
         });
 }
 
-// common function for dashboard data which will call on click or onLoad
+/**
+ * @function printData(value) this function will return the dashbaord data
+ */
 function printData(value) {
     const image = document.createElement('img');
     const column = document.createElement('div');
@@ -257,35 +291,65 @@ function printData(value) {
     const name = document.createElement('div');
     const price = document.createElement('div');
     const hoverDiv = document.createElement('div');
+    const sizeHoverDiv = document.createElement('div');
     const sizeDiv = document.createElement('div');
     const buttonHover = document.createElement('button');
 
-    // calculate the percentage of compare
+    // calculate the percentage of compare proces
     let perc = ((value.price / value.compare_at_price) * 100).toFixed(0)
     perc = 100 - perc;
 
 
-    column.className = 'item-div'
+    // main div
+    column.className = 'add-to-cart-main-div'
+
+    // image div
     image.className = 'item-img'
     image.setAttribute('src', value.image_src);
-    hoverDiv.className = 'hvr-div'
-    hoverDiv.id = 'hover-div'
+
+    // add to cart main div
+    hoverDiv.className = 'add-to-cart-hover-div'
+    hoverDiv.id = 'add-to-cart-hover-id'
+
+    // add to cart button div
     buttonHover.id = value.id;
-    buttonHover.disabled = true;
-    buttonHover.className = 'button-cls'
+    buttonHover.className = 'add-to-cart-button'
     buttonHover.textContent = "ADD TO CART"
+    // buttonHover.disabled = true;
+
+    // brand div
     brand.className = 'list-Of-items-0'
+    brand.textContent = value.vendor
+
+    // name div
     name.className = 'list-Of-items-2'
+    name.textContent = value.name
+
+    // sizes div
     sizeDiv.innerHTML = `
-                        <div>
-                            <span class="sizetext">Sizes: </span>
-                            <a class="sizes" href='#'>XS,</a>
-                            <a class="sizes" href='#'>S,</a>
-                            <a class="sizes" href='#'>M,</a>
-                            <a class="sizes" href='#'>L,</a>
-                            <a class="sizes" href='#'>XL</a>
+                        <div class="size-div">
+                            <span class="alph-size-text">Sizes: </span>
+                            <span class="alph-sizes" href='#'>XS,</span>
+                            <span class="alph-sizes" href='#'>S,</span>
+                            <span class="alph-sizes" href='#'>M,</span>
+                            <span class="alph-sizes" href='#'>L,</span>
+                            <span class="alph-sizes" href='#'>XL</span>
                         </div>
       `;
+
+    // sizes div on hover
+    sizeHoverDiv.innerHTML = `
+                         <div class="num-size-main-div">
+                         <span class="num-size-text">Select Size </span><br>
+                         <button class="num-sizes" href='#'>38</button>
+                         <button class="num-sizes" href='#'>40</button>
+                         <button class="num-sizes" href='#'>42</button>
+                         <button class="num-sizes" href='#'>44</button>
+                         <button class="num-sizes" href='#'>46</button>
+                         </div>
+       `;
+
+    // price div   
     price.innerHTML = `
                       <div class='list-Of-items'>
                       <label class="price-val">$${value.price}</label>
@@ -294,10 +358,9 @@ function printData(value) {
                      </div>
                     `;
 
-    brand.textContent = value.vendor
-    name.textContent = value.name
-
+    // append tags
     hoverDiv.appendChild(buttonHover);
+    hoverDiv.appendChild(sizeHoverDiv);
     hoverDiv.appendChild(sizeDiv);
     column.appendChild(image);
     column.appendChild(hoverDiv);
@@ -307,11 +370,15 @@ function printData(value) {
     list.appendChild(column);
 }
 
-// cart function
+
+/**
+ * @function cartItems(e) this function willl return add to cart data object
+ */
 function cartItems(e) {
     e.preventDefault()
-    if (e.target.classList.contains('button-cls')) {
 
+    // will find clas on click
+    if (e.target.classList.contains('add-to-cart-button')) {
         const cart = e.target.parentElement.parentElement
 
         // store the data into object
@@ -322,12 +389,15 @@ function cartItems(e) {
             id: cart.querySelector('button').id
         }
 
-        addintoCart(cartData);
+        // call addIntoCart function
+        addIntoCart(cartData);
     }
 }
 
-//add the data into cart
-function addintoCart(cartItem) {
+/**
+ * @function addIntoCart(cartItem) this function will add data into cart memory
+ */
+function addIntoCart(cartItem) {
 
     // create a <tr> tag for the tabe row data purpose 
     const tr = document.createElement('tr');
@@ -341,6 +411,7 @@ function addintoCart(cartItem) {
                   <td>${cartItem.name}</td>
                   <td>${cartItem.price}</td>
                   <td>
+                       <a href="#" class="edit-cart" data-id="${cartItem.id}">edit</a>
                        <a href="#" class="remove-cart" data-id="${cartItem.id}">delete</a>
                   </td>
              </tr>
@@ -352,7 +423,9 @@ function addintoCart(cartItem) {
     saveDataIntoStorage(cartItem);
 }
 
-// Add the cart value into the local storage
+/**
+ * @function saveDataIntoStorage(cartItem) Add the cart value into the local storage
+ */
 function saveDataIntoStorage(cartItem) {
     let items = getitemsFromStorage();
 
@@ -363,7 +436,9 @@ function saveDataIntoStorage(cartItem) {
     localStorage.setItem('items', JSON.stringify(items));
 }
 
-// Get the contents from storage
+/**
+ * @function getitemsFromStorage() Get the contents from storage
+ */
 function getitemsFromStorage() {
 
     let items;
@@ -377,17 +452,22 @@ function getitemsFromStorage() {
     return items;
 
 }
-// clear the values from Cart
+
+/**
+ * @function removeItem(e) clear the values from Cart by click on delete
+ */
 function removeItem(e) {
 
     let cartId, cartsLocalData;
 
+    // get the tag and then delete
     if (e.target.classList.contains('remove-cart')) {
         console.log("ok");
         e.target.parentElement.parentElement.remove();
         cartId = e.target.parentElement.parentElement.querySelector('a').getAttribute('data-id');
     }
 
+    // get the latest data from localStorage
     cartsLocalData = getitemsFromStorage();
 
     // loop trought the array and find the index to remove
@@ -397,34 +477,41 @@ function removeItem(e) {
         }
     });
 
-    // Add the rest of the array
+    // Add the latest data into storage
     localStorage.setItem('items', JSON.stringify(cartsLocalData));
 }
 
+/**
+ * @function clearAllData() clear cart memory
+ */
 function clearAllData() {
 
+    // loop till all the data deleted
     while (shoppingCart.firstChild) {
         shoppingCart.removeChild(shoppingCart.firstChild);
     }
 
+    // remove all the data from local storage
     localStorage.clear();
 
 }
 
+/**
+ * @function dataFromLocalStorage() clear cart memory
+ */
 function dataFromLocalStorage() {
-    console.log("from local storage");
 
+    // get the latest data from localstorage
     let getItems = getitemsFromStorage();
-
-    console.log("from local storage  =>>>  ", getItems);
 
     // LOOP throught the cart items and print into the cart
     getItems.forEach(cartData => {
-        // create the <tr>
-        const tr = document.createElement('tr');
+
+        // create the <tr> tag for cart
+        const rowdata = document.createElement('tr');
 
         // print the content
-        tr.innerHTML = `
+        rowdata.innerHTML = `
                  <tr>
                       <td>
                            <img src="${cartData.image}" width=100>
@@ -432,12 +519,12 @@ function dataFromLocalStorage() {
                       <td>${cartData.name}</td>
                       <td>${cartData.price}</td>
                       <td>
+                           <a href="#" class="edit-cart" data-id="${cartItem.id}">edit</a>
                            <a href="#" class="remove-cart" data-id="${cartData.id}">delete</a>
                       </td>
                  </tr>
             `;
 
-        console.log("tr : ", tr);
-        shoppingCart.appendChild(tr);
+        shoppingCart.appendChild(rowdata);
     });
 }

@@ -207,7 +207,7 @@
 }
 
 @media (min-width: 576px){
-.item-div {
+.add-to-cart-main-div {
     flex: 0 0 auto;
     width: 20%;
     margin-bottom: 3%;
@@ -230,7 +230,7 @@
     margin-left: calc(var(--bs-gutter-x) / -2);
 }
 
-.hvr-div {
+.add-to-cart-hover-div {
     font-weight: lighter;
     font-size: unset;
     color: darkgray;
@@ -242,7 +242,7 @@
     overflow: hidden;
 }
 
-.item-div:hover .hvr-div {
+.add-to-cart-main-div:hover .add-to-cart-hover-div {
     font-weight: lighter;
     font-size: unset;
     color: darkgray;
@@ -252,27 +252,76 @@
     margin-top: -38px;
     position: absolute;
     content-visibility: inherit;
- }
+}
 
-.sizes {
+.alph-sizes {
     font-weight: lighter;
     font-size: unset;
     color: darkgray;
     text-decoration: none;
 }
 
-.sizetext {
+.num-size-text {
+    color: black;
+    font-size: smaller;
     margin-left: 14px;
+    font-family: inherit;
+    font-weight: 500;
+}
+
+.num-sizes {
+    margin-left: 12px;
+    border-radius: 50%;
+    width: 13%;
+    background-color: white;
+    border-width: thin;
+    border-color: darkgray;
+    font-family: cursive;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+/* .item-num-sizes {
+    width: 258px;
+    margin-top: -47px;
+    background-color: blue;
+    position: fixed;
+    content-visibility:hidden;
+    position: relative;
+    overflow: hidden;
+} */
+
+.num-size-main-div {
+    margin-top: -23%;
+    background-color: aqua;
+    width: 98%;
+    position: absolute;
+    content-visibility: hidden;
+    overflow: hidden;
+}
+
+
+/* .add-to-cart-hover-div:hover {
+    margin-top: -23%;
+    background-color: aqua;
+    width: 98%;
+    position: relative;
+    content-visibility: inherit;
+    overflow: hidden;
+}   */
+
+.alph-size-text {
+    margin-left: 11px;
     font-weight: lighter;
     font-size: unset;
     color: darkgray;
     text-decoration: none;
 }
 
-.button-cls {
+.add-to-cart-button {
     text-decoration-line: none;
     width: 90%;
-    margin-left: 5%;
+    margin-left: 4%;
     background-color: white;
     font-weight: 600;
     font-family: unset;
@@ -332,8 +381,8 @@ td {
 }
 
 .remove-cart {
-    background-color: green;
-    padding: 5px 10px;
+    background-color: red;
+    padding: 1px 10px;
     text-decoration: none;
     color: white;
     font-weight: 100;
@@ -341,8 +390,26 @@ td {
 }
 
 .remove-cart:hover {
+    background-color: red;
+    padding: 1px 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: 100;
+    font-family: -webkit-body;
+}
+
+.edit-cart {
     background-color: green;
-    padding: 5px 10px;
+    padding: 1px 17px;
+    text-decoration: none;
+    color: white;
+    font-weight: 100;
+    font-family: -webkit-body;
+}
+
+.edit-cart:hover {
+    background-color: green;
+    padding: 1px 17px;
     text-decoration: none;
     color: white;
     font-weight: 100;
