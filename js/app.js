@@ -11,7 +11,9 @@ const list = document.getElementById('list'),
     shirt = document.getElementById('shirt'),
     shoppingCart = document.querySelector('#cart-content tbody'),
     clearCartBtn = document.getElementById('clear-cart'),
-    sortSelect = document.getElementById('select')
+    sortSelect = document.getElementById('select'),
+    findFilterItemButton = document.getElementsByClassName('row-ok').child
+console.log("findFilterItemButton : ", findFilterItemButton);
 
 
 
@@ -43,6 +45,8 @@ function listener() {
 function allproductfunction(e) {
     e.preventDefault();
 
+    let sort;
+
     // will return all count
     countData(e.target.value);
 
@@ -60,7 +64,6 @@ function allproductfunction(e) {
 
             // will checkc the sort filter 
             sort = sortDataDependOnCondition(val);
-            console.log("sort", sort);
             sort.forEach(value => {
                 printData(value)
             })
@@ -73,6 +76,8 @@ function allproductfunction(e) {
  */
 function teeshirtfunction(e) {
     e.preventDefault();
+
+    let sort;
 
     // will return all count
     countData(e.target.value);
@@ -106,6 +111,8 @@ function teeshirtfunction(e) {
 function denimfunction(e) {
     e.preventDefault();
 
+    let sort;
+
     // will return denim count
     countData(e.target.value);
 
@@ -137,6 +144,8 @@ function denimfunction(e) {
  */
 function sweatshirtfunction(e) {
     e.preventDefault();
+
+    let sort;
 
     // will return sweater count
     countData(e.target.value);
@@ -170,6 +179,8 @@ function sweatshirtfunction(e) {
 function poloteeshirtfunction(e) {
     e.preventDefault();
 
+    let sort;
+
     // will return polo teeshirt count
     countData(e.target.value);
 
@@ -200,6 +211,8 @@ function poloteeshirtfunction(e) {
  */
 function shirtfunction(e) {
     e.preventDefault();
+
+    let sort;
 
     // will return shirt count
     countData(e.target.value);
@@ -242,86 +255,22 @@ function sortSelectFilter(e) {
 
     // price Low To High
     if (e.target.value === '1') {
-        console.log("1 => ", e.target.value);
 
-        // return the shirt data
-        api.data()
-            .then(response => response.json())
-            .then(function (val) {
-
-                // sort the response from low to high
-                sort = val.sort((a, b) => {
-                    let low = a.price
-                    let high = b.price
-                    return low - high;
-                });
-                sort.forEach(value => {
-                    printData(value);
-                })
-            })
     }
 
     // price High To Low
     if (e.target.value === '2') {
-        console.log("2 => ", e.target.value);
 
-        // return the shirt data
-        api.data()
-            .then(response => response.json())
-            .then(function (val) {
-
-                // sort the response from high to low
-                sort = val.sort((a, b) => {
-                    let low = a.price
-                    let high = b.price
-                    return high - low;
-                });
-                sort.forEach(value => {
-                    printData(value);
-                })
-            })
     }
 
     // better Discount
     if (e.target.value === '3') {
-        console.log("3 => ", e.target.value);
 
-        // return the shirt data
-        api.data()
-            .then(response => response.json())
-            .then(function (val) {
-
-                // sort the response for better discount (after compare)
-                sort = val.sort((a, b) => {
-                    let low = a.price
-                    let high = b.price
-                    return low - high;
-                });
-                sort.forEach(value => {
-                    printData(value);
-                })
-            })
     }
 
     // popularity
     if (e.target.value === '4') {
-        console.log("4 => ", e.target.value);
 
-        // return the shirt data
-        api.data()
-            .then(response => response.json())
-            .then(function (val) {
-
-                // sort the response for popurality
-                sort = val.sort((a, b) => {
-                    let low = a.price
-                    let high = b.price
-                    return low - high;
-                });
-                sort.forEach(value => {
-                    printData(value);
-                })
-            })
     }
 }
 
@@ -329,6 +278,8 @@ function sortSelectFilter(e) {
  * @function sortDataDependOnCondition(val) this function will check that what is sort filter on every click
  */
 function sortDataDependOnCondition(val) {
+
+    // low o high filter
     if (sortSelect.value === '1') {
         let sort;
         sort = val.sort((a, b) => {
@@ -339,6 +290,7 @@ function sortDataDependOnCondition(val) {
         return sort;
     }
 
+    // high to low filter
     if (sortSelect.value === '2') {
         let sort;
         sort = val.sort((a, b) => {
@@ -346,29 +298,33 @@ function sortDataDependOnCondition(val) {
             let high = b.price
             return high - low;
         });
+        console.log("sort", sort);
         return sort;
     }
 
+    // based on high to low discount
     if (sortSelect.value === '3') {
-        // let sort;
-        // sort = val.sort((a, b) => {
-        //     let low = a.price
-        //     let high = b.price
-        //     return low - high;
-        // });
-        // return sort;
-        return val;
+        sort = val.sort((a, b) => {
+
+            // calculate the percentage for better discount filter
+            let priceOfA = ((a.price / a.compare_at_price) * 100).toFixed(0)
+            let priceOfB = ((b.price / b.compare_at_price) * 100).toFixed(0)
+            let low = 100 - priceOfA;
+            let high = 100 - priceOfB;
+            return high - low;
+        });
+        return sort;
     }
 
+    // higest base price
     if (sortSelect.value === '4') {
-        // let sort;
-        // sort = val.sort((a, b) => {
-        //     let low = a.price
-        //     let high = b.price
-        //     return low - high;
-        // });
-        // return sort;
-        return val;
+        let sort;
+        sort = val.sort((a, b) => {
+            let low = a.compare_at_price
+            let high = b.compare_at_price
+            return high - low;
+        });
+        return sort;
     }
 }
 
