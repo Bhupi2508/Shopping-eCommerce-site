@@ -9,7 +9,7 @@
   font-family: sans-serif;
 }
 
-.option {
+.shop-option {
     border: none;
     color: black;
     text-decoration: none;
@@ -131,7 +131,7 @@
     border-color: Black;
 }
 
-.filter1 {
+.sortFilter {
     background-color: white;
     border-radius: 20px;
     font-size: small;
@@ -141,16 +141,17 @@
     margin-left: -15%;
 }
 
-.filter1:active, 
-.filter1:focus  {
+.sortFilter:active, 
+.sortFilter:focus {
     background-color: white;
     border-radius: 20px;
     font-size: small;
     border-width: 1px;
     padding: 7px; 
-    margin-left: -15%;
-    color: Black;;
+    color: Black;
     border-color: Black;
+    position:static;
+    background-color: white;
 }
 
 .hr {

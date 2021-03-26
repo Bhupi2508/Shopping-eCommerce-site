@@ -10,7 +10,8 @@ const list = document.getElementById('list'),
     poloteeshirt = document.getElementById('poloteeshirt'),
     shirt = document.getElementById('shirt'),
     shoppingCart = document.querySelector('#cart-content tbody'),
-    clearCartBtn = document.getElementById('clear-cart');
+    clearCartBtn = document.getElementById('clear-cart'),
+    sortSelect = document.getElementById('select')
 
 
 
@@ -32,6 +33,7 @@ function listener() {
     shoppingCart.addEventListener('click', removeItem);
     clearCartBtn.addEventListener('click', clearAllData)
     document.addEventListener('DOMContentLoaded', dataFromLocalStorage);
+    sortSelect.addEventListener('click', sortSelectFilter);
 }
 
 
@@ -55,7 +57,11 @@ function allproductfunction(e) {
     api.data()
         .then(response => response.json())
         .then(function (val) {
-            val.forEach(value => {
+
+            // will checkc the sort filter 
+            sort = sortDataDependOnCondition(val);
+            console.log("sort", sort);
+            sort.forEach(value => {
                 printData(value)
             })
         })
@@ -82,7 +88,10 @@ function teeshirtfunction(e) {
     api.data()
         .then(response => response.json())
         .then(function (val) {
-            val.forEach(value => {
+
+            // will checkc the sort filter 
+            sort = sortDataDependOnCondition(val)
+            sort.forEach(value => {
                 if (value.image_src[0].indexOf('/Teeshirt') > -1) {
                     printData(value);
                 }
@@ -111,7 +120,10 @@ function denimfunction(e) {
     api.data()
         .then(response => response.json())
         .then(function (val) {
-            val.forEach(value => {
+
+            // will checkc the sort filter 
+            sort = sortDataDependOnCondition(val)
+            sort.forEach(value => {
                 if (value.image_src[0].indexOf('/Denim') > -1) {
                     printData(value);
                 }
@@ -140,7 +152,10 @@ function sweatshirtfunction(e) {
     api.data()
         .then(response => response.json())
         .then(function (val) {
-            val.forEach(value => {
+
+            // will checkc the sort filter 
+            sort = sortDataDependOnCondition(val)
+            sort.forEach(value => {
                 if (value.image_src[0].indexOf('/Sweater') > -1) {
                     printData(value);
                 }
@@ -169,7 +184,10 @@ function poloteeshirtfunction(e) {
     api.data()
         .then(response => response.json())
         .then(function (val) {
-            val.forEach(value => {
+
+            // will checkc the sort filter 
+            sort = sortDataDependOnCondition(val)
+            sort.forEach(value => {
                 if (value.image_src[0].indexOf('/Polo_Tee_Shirt') > -1) {
                     printData(value);
                 }
@@ -197,12 +215,161 @@ function shirtfunction(e) {
     api.data()
         .then(response => response.json())
         .then(function (val) {
-            val.forEach(value => {
+
+            // will checkc the sort filter 
+            sort = sortDataDependOnCondition(val)
+            sort.forEach(value => {
                 if (value.image_src[0].indexOf('/Shirt') > -1) {
                     printData(value);
                 }
             })
         })
+}
+
+/**
+ * @function sortSelectFilter(e) this function is for sorting the data based on filter
+ */
+function sortSelectFilter(e) {
+    e.preventDefault();
+    let sort;
+
+    // If data has already present
+    let child = list.lastElementChild;
+    while (child) {
+        list.removeChild(child);
+        child = list.lastElementChild;
+    }
+
+    // price Low To High
+    if (e.target.value === '1') {
+        console.log("1 => ", e.target.value);
+
+        // return the shirt data
+        api.data()
+            .then(response => response.json())
+            .then(function (val) {
+
+                // sort the response from low to high
+                sort = val.sort((a, b) => {
+                    let low = a.price
+                    let high = b.price
+                    return low - high;
+                });
+                sort.forEach(value => {
+                    printData(value);
+                })
+            })
+    }
+
+    // price High To Low
+    if (e.target.value === '2') {
+        console.log("2 => ", e.target.value);
+
+        // return the shirt data
+        api.data()
+            .then(response => response.json())
+            .then(function (val) {
+
+                // sort the response from high to low
+                sort = val.sort((a, b) => {
+                    let low = a.price
+                    let high = b.price
+                    return high - low;
+                });
+                sort.forEach(value => {
+                    printData(value);
+                })
+            })
+    }
+
+    // better Discount
+    if (e.target.value === '3') {
+        console.log("3 => ", e.target.value);
+
+        // return the shirt data
+        api.data()
+            .then(response => response.json())
+            .then(function (val) {
+
+                // sort the response for better discount (after compare)
+                sort = val.sort((a, b) => {
+                    let low = a.price
+                    let high = b.price
+                    return low - high;
+                });
+                sort.forEach(value => {
+                    printData(value);
+                })
+            })
+    }
+
+    // popularity
+    if (e.target.value === '4') {
+        console.log("4 => ", e.target.value);
+
+        // return the shirt data
+        api.data()
+            .then(response => response.json())
+            .then(function (val) {
+
+                // sort the response for popurality
+                sort = val.sort((a, b) => {
+                    let low = a.price
+                    let high = b.price
+                    return low - high;
+                });
+                sort.forEach(value => {
+                    printData(value);
+                })
+            })
+    }
+}
+
+/**
+ * @function sortDataDependOnCondition(val) this function will check that what is sort filter on every click
+ */
+function sortDataDependOnCondition(val) {
+    if (sortSelect.value === '1') {
+        let sort;
+        sort = val.sort((a, b) => {
+            let low = a.price
+            let high = b.price
+            return low - high;
+        });
+        return sort;
+    }
+
+    if (sortSelect.value === '2') {
+        let sort;
+        sort = val.sort((a, b) => {
+            let low = a.price
+            let high = b.price
+            return high - low;
+        });
+        return sort;
+    }
+
+    if (sortSelect.value === '3') {
+        // let sort;
+        // sort = val.sort((a, b) => {
+        //     let low = a.price
+        //     let high = b.price
+        //     return low - high;
+        // });
+        // return sort;
+        return val;
+    }
+
+    if (sortSelect.value === '4') {
+        // let sort;
+        // sort = val.sort((a, b) => {
+        //     let low = a.price
+        //     let high = b.price
+        //     return low - high;
+        // });
+        // return sort;
+        return val;
+    }
 }
 
 /**
@@ -272,10 +439,25 @@ function countData(key) {
  * @function responseData() this function call on load for first time for all data
  */
 function responseData() {
+
+    // If data has already present
+    let child = list.lastElementChild;
+    while (child) {
+        list.removeChild(child);
+        child = list.lastElementChild;
+    }
+
     api.data()
         .then(response => response.json())
         .then(function (val) {
-            val.forEach(value => {
+
+            // default low to high sort
+            sort = val.sort((a, b) => {
+                let low = a.price
+                let high = b.price
+                return low - high;
+            });
+            sort.forEach(value => {
                 printData(value)
             })
         });
@@ -462,7 +644,6 @@ function removeItem(e) {
 
     // get the tag and then delete
     if (e.target.classList.contains('remove-cart')) {
-        console.log("ok");
         e.target.parentElement.parentElement.remove();
         cartId = e.target.parentElement.parentElement.querySelector('a').getAttribute('data-id');
     }
@@ -519,7 +700,7 @@ function dataFromLocalStorage() {
                       <td>${cartData.name}</td>
                       <td>${cartData.price}</td>
                       <td>
-                           <a href="#" class="edit-cart" data-id="${cartItem.id}">edit</a>
+                           <a href="#" class="edit-cart" data-id="${cartData.id}">edit</a>
                            <a href="#" class="remove-cart" data-id="${cartData.id}">delete</a>
                       </td>
                  </tr>
