@@ -4,6 +4,7 @@ class ApiData {
     async data() {
 
 
+        // get the data from provide url/file
         const apiResponse = await fetch('product.json');
         return apiResponse
 
